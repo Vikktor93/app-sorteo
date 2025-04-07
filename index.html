@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplicación de Sorteo ICINF</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center px-4">
+
+  <div class="w-full max-w-xl bg-white p-8 rounded-xl shadow-md">
+    <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Aplicación de Sorteo ICINF</h1>
+
+    <div class="mb-4">
+      <label for="fileInput" class="block text-sm font-medium text-gray-700 mb-1">Selecciona un archivo .txt o .csv:</label>
+      <input type="file" id="fileInput" accept=".txt,.csv"
+             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+    </div>
+
+    <div class="mb-4">
+      <label for="groupSize" class="block text-sm font-medium text-gray-700 mb-1">Integrantes por grupo:</label>
+      <input type="number" id="groupSize" min="1"
+             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+             placeholder="Ej: 3" />
+    </div>
+
+    <button onclick="formarGrupos()"
+            class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
+      Formar Grupos
+    </button>
+
+    <div id="gruposResultado" class="mt-8 space-y-4"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
