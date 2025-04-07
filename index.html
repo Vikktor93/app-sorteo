@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aplicación de Sorteo ICINF</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -29,7 +29,20 @@
       Formar Grupos
     </button>
 
+    <!-- Resultado actual -->
     <div id="gruposResultado" class="mt-8 space-y-4"></div>
+
+    <!-- Historial -->
+    <div id="historial" class="mt-12">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold text-gray-800">Historial de Sorteos</h2>
+        <button onclick="borrarHistorial()"
+                class="bg-red-500 text-white font-semibold py-1 px-3 rounded hover:bg-red-600 transition duration-200 text-sm">
+          Borrar Historial
+        </button>
+      </div>
+      <div id="contenedorHistorial" class="space-y-6"></div>
+    </div>
   </div>
 
   <script src="script.js"></script>
