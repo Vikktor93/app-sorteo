@@ -45,12 +45,15 @@ function formarGrupos() {
     grupos.push(copiaEstudiantes.splice(0, groupSize));
   }
 
+  // Obtener la fecha y hora actuales
+  const fechaHora = new Date().toLocaleString('es-CL');
+
+  // Guardar en historial con fecha y hora
+  historial.push({ fechaHora, grupos });
+  localStorage.setItem('historialSorteos', JSON.stringify(historial));
+
   // Mostrar resultado actual
   mostrarGrupos(grupos, document.getElementById('gruposResultado'));
-
-  // Guardar en historial y persistir
-  historial.push(grupos);
-  localStorage.setItem('historialSorteos', JSON.stringify(historial));
 
   actualizarHistorial();
 }
@@ -72,12 +75,12 @@ function actualizarHistorial() {
   const contenedorHistorial = document.getElementById('contenedorHistorial');
   contenedorHistorial.innerHTML = '';
 
-  historial.forEach((grupos, index) => {
+  historial.forEach((entrada, index) => {
     const div = document.createElement('div');
     div.className = 'bg-white border border-gray-300 rounded p-4 shadow';
-    div.innerHTML = `<h3 class="font-bold text-gray-800 mb-2">Sorteo #${index + 1}</h3>`;
+    div.innerHTML = `<h3 class="font-bold text-gray-800 mb-2">Sorteo #${index + 1} - ${entrada.fechaHora}</h3>`;
 
-    grupos.forEach((grupo, i) => {
+    entrada.grupos.forEach((grupo, i) => {
       div.innerHTML += `
         <div class="mb-2">
           <h4 class="font-semibold text-blue-600">Grupo ${i + 1}</h4>
@@ -110,15 +113,30 @@ async function exportarPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  let y = 10;
+  // Añadir encabezado y pie de página en cada página
+  const addHeadersFooters = () => {
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      // Encabezado
+      doc.setFontSize(12);
+      doc.setTextColor(40);
+      doc.text("Historial de Sorteos", doc.internal.pageSize.width / 2, 10, { align: 'center' });
+      // Pie de página
+      doc.setFontSize(10);
+      doc.text(`Página ${i} de ${pageCount}`, doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 10, { align: 'center' });
+    }
+  };
 
-  historial.forEach((grupos, index) => {
+  let y = 20;
+
+  historial.forEach((entrada, index) => {
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 150);
-    doc.text(`Sorteo #${index + 1}`, 10, y);
+    doc.text(`Sorteo #${index + 1} - ${entrada.fechaHora}`, 10, y);
     y += 6;
 
-    grupos.forEach((grupo, i) => {
+    entrada.grupos.forEach((grupo, i) => {
       doc.setFontSize(12);
       doc.setTextColor(0, 100, 0);
       doc.text(`Grupo ${i + 1}:`, 12, y);
@@ -130,9 +148,9 @@ async function exportarPDF() {
         doc.text(`- ${nombre}`, 16, y);
         y += 5;
 
-        if (y > 280) { // Salto de página si llega al final
+        if (y > doc.internal.pageSize.height - 20) { // Salto de página si se alcanza el final
           doc.addPage();
-          y = 10;
+          y = 20;
         }
       });
 
@@ -141,6 +159,8 @@ async function exportarPDF() {
 
     y += 6;
   });
+
+  addHeadersFooters();
 
   doc.save("historial_sorteos.pdf");
 }
