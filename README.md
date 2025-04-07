@@ -35,8 +35,9 @@ This is a WebApp that allows you to randomly create student groups from a `.txt`
 ## 🌐 Despliegue | Live Demo
 
 Accede a la aplicación aquí:  
-🔗 [https://app-sorteo-blond.vercel.app/](https://app-sorteo-blond.vercel.app/)
+🔗 [https://tusitio.vercel.app](https://tusitio.vercel.app)
 
+> Reemplaza el enlace por el de tu sitio en Vercel
 
 ---
 
@@ -44,4 +45,9 @@ Accede a la aplicación aquí:
 
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/Vikktor93/app-sorteo
+   git clone https://github.com/tuusuario/nombre-repo.git
+
+---
+
+## 🔒 Licencia
+Este proyecto está bajo la licencia MIT.
