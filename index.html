@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aplicación de Sorteo ICINF</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center px-4">
 
@@ -36,10 +37,16 @@
     <div id="historial" class="mt-12">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-bold text-gray-800">Historial de Sorteos</h2>
-        <button onclick="borrarHistorial()"
-                class="bg-red-500 text-white font-semibold py-1 px-3 rounded hover:bg-red-600 transition duration-200 text-sm">
-          Borrar Historial
-        </button>
+        <div class="flex space-x-2">
+          <button onclick="exportarPDF()"
+                  class="bg-green-600 text-white font-semibold py-1 px-3 rounded hover:bg-green-700 transition duration-200 text-sm">
+            Exportar PDF
+          </button>
+          <button onclick="borrarHistorial()"
+                  class="bg-red-500 text-white font-semibold py-1 px-3 rounded hover:bg-red-600 transition duration-200 text-sm">
+            Borrar Historial
+          </button>
+        </div>
       </div>
       <div id="contenedorHistorial" class="space-y-6"></div>
     </div>

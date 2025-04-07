@@ -38,7 +38,7 @@ function formarGrupos() {
   }
 
   const copiaEstudiantes = [...estudiantes];
-  copiaEstudiantes.sort(() => Math.random() - 0.5); // Se mezcla aleatoriamente
+  copiaEstudiantes.sort(() => Math.random() - 0.5); // Selección Aleatoria
 
   const grupos = [];
   while (copiaEstudiantes.length > 0) {
@@ -99,4 +99,48 @@ function borrarHistorial() {
     document.getElementById('contenedorHistorial').innerHTML = '';
     alert('Historial borrado correctamente.');
   }
+}
+
+async function exportarPDF() {
+  if (historial.length === 0) {
+    alert("No hay historial para exportar.");
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  let y = 10;
+
+  historial.forEach((grupos, index) => {
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 150);
+    doc.text(`Sorteo #${index + 1}`, 10, y);
+    y += 6;
+
+    grupos.forEach((grupo, i) => {
+      doc.setFontSize(12);
+      doc.setTextColor(0, 100, 0);
+      doc.text(`Grupo ${i + 1}:`, 12, y);
+      y += 5;
+
+      grupo.forEach((nombre) => {
+        doc.setFontSize(11);
+        doc.setTextColor(0);
+        doc.text(`- ${nombre}`, 16, y);
+        y += 5;
+
+        if (y > 280) { // Salto de página si llega al final
+          doc.addPage();
+          y = 10;
+        }
+      });
+
+      y += 3;
+    });
+
+    y += 6;
+  });
+
+  doc.save("historial_sorteos.pdf");
 }
