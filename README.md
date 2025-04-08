@@ -1,4 +1,4 @@
-# 🎲 Aplicación de Sorteo / Group Randomizer App
+# 🎲 Aplicación de Sorteo / Randomizer App
 
 ![Vista previa de la aplicación](./assets/screenshot.png)
 
